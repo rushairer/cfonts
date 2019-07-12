@@ -202,7 +202,8 @@ const CLIOPTIONS = {
 		default: 1,
 	},
 };
-const PACKAGE = JSON.parse( Fs.readFileSync( Path.normalize(`${ __dirname }/../package.json`), 'utf8' ) );
+//const PACKAGE = JSON.parse( Fs.readFileSync( Path.normalize(`${ __dirname }/../package.json`), 'utf8' ) );
+const PACKAGE = require('../package.json');
 const HEXTEST = RegExp('^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$');
 
 
@@ -218,15 +219,16 @@ const GetFont = ( font ) => {
 
 	// try loading the font file
 	try {
-		let fontFile = Path.normalize( `${ __dirname }/../fonts/${ font }.json` ); // build font path
-		let FONTFACE = JSON.parse( Fs.readFileSync( fontFile, 'utf8' ) ); // read font file
+		//let fontFile = Path.normalize( `${ __dirname }/../fonts/${ font }.json` ); // build font path
+		//let FONTFACE = JSON.parse( Fs.readFileSync( fontFile, 'utf8' ) ); // read font file
 
-		Debugging.report( `GetFont: Fontface path selected: "${ fontFile }"`, 2 );
+		let FONTFACE = require(`../fonts/${font}.json`);
+		//Debugging.report( `GetFont: Fontface path selected: "${ fontFile }"`, 2 );
 
 		return FONTFACE;
 	}
 	catch( error ) {
-		Debugging.error( `Font file for "${ font }" errored out: ${ error }`, 2 );
+		//Debugging.error( `Font file for "${ font }" errored out: ${ error }`, 2 );
 
 		return false;
 	}
